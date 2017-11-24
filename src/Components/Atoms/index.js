@@ -1,2 +1,4 @@
 import Content from './Content'
-export { Content }
+import Title from './Title'
+
+export { Content, Title }

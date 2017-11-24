@@ -1,10 +1,10 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import Content from './Content'
+import Title from './Title'
 
 it('renders the given text', () => {
   const text = 'Hello World!'
-  const content = shallow(<Content text={text} />)
-  expect(content.text()).toEqual(text)
+  const title = shallow(<Title text={text} />)
+  expect(title.text()).toEqual(text)
 })
