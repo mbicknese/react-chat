@@ -17,6 +17,6 @@ it('renders given messages', () => {
   }
   const chat = shallow(<Chat data={data} />)
   expect(chat.find(Message).length).toBe(3)
-  expect(chat.find(Message)[0].prop('data')).toBe(data.messages['124-234-234'])
-  expect(chat.find(Message)[2].prop('data')).toBe(data.messages['032-215-235'])
+  expect(chat.find(Message).at(0).prop('data')).toBe(data.messages['124-234-234'])
+  expect(chat.find(Message).at(2).prop('data')).toBe(data.messages['131-142-124'])
 })

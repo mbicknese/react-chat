@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Message } from '@/Components/Molecules'
 
-const Chat = () => (
-  <div>Chat placeholder</div>
-)
+const propTypes = {
+  data: PropTypes.object.isRequired
+}
 
+class Chat extends Component {
+  renderMessages () {
+    return this.props.data.current.map((id) => (
+      <Message data={this.props.data.messages[id]} key={id} />
+    ), [])
+  }
+
+  render () {
+    return (
+      <div>
+        {this.renderMessages()}
+      </div>
+    )
+  }
+}
+
+Chat.propTypes = propTypes
 export default Chat
