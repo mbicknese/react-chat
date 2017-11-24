@@ -12,4 +12,6 @@ it('renders the given text', () => {
   const message = shallow(<Message data={data} />)
   expect(message.find(Title).length).toBe(1)
   expect(message.find(Content).length).toBe(1)
+  expect(message.find(Title).prop('text')).toBe(data.title)
+  expect(message.find(Content).prop('text')).toBe(data.text)
 })
