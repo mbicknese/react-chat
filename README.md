@@ -30,3 +30,6 @@ Build a chat application to be ran in the browser. Two (2) users must be able to
  - When the user is typing, indication that they are typing should be shown to the other user
  - Emoji support using the `:<emojiname>:` syntax
  - Animations. E.g. When a new message arrives, it should slide in, and the messages above slide up
+
+## Disclaimer
+As I've been looking for a project to use TailwindCSS on. This seemed like an oportune moment. And although it will help to quickly create a nice layout. It won't be as themeable as other setups.
