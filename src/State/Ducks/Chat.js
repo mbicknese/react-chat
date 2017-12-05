@@ -5,15 +5,22 @@ import { createEpicMiddleware } from 'redux-observable'
 const OWN_MESSAGE = 'react-chat/chat/OWN_MESSAGE'
 const RECEIVE_MESSAGE = 'react-chat/chat/RECEIVE_MESSAGE'
 const MESSAGE_DELIVERED = 'react-chat/chat/MESSAGE_DELIVERED'
+const CONNECTED = 'react-chat/chat/CONNECTED'
 
 // @TODO improve scalability (and use logic names 'byId', 'allIds', 'chats.messageIds')
 const initialState = {
   messages: {},
-  current: []
+  current: [],
+  author: null
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case CONNECTED:
+      return {
+        ...state,
+        author: action.payload
+      }
     case RECEIVE_MESSAGE:
     case OWN_MESSAGE:
       if (!state.current.includes(action.payload.id)) {
@@ -28,8 +35,9 @@ export default (state = initialState, action) => {
 
 export const postOwnMessage = payload => ({ type: OWN_MESSAGE, payload })
 export const receiveMessage = payload => ({ type: RECEIVE_MESSAGE, payload })
+export const connected = payload => ({ type: CONNECTED, payload })
 
-export const loadEpic = action$ =>
+const loadEpic = action$ =>
 action$.ofType(OWN_MESSAGE)
   .map(action =>
     socket.emit('messageSend', action.payload)
@@ -39,8 +47,13 @@ const receiveEpic = action$ =>
 Observable.create(observer => {
   socket.on('messageSend', message => { observer.next(receiveMessage(message)) })
 })
+const connectEpic = action$ =>
+Observable.create(observer => {
+  socket.on('connect', connection => { console.log(connection); observer.next(connected(connection)) })
+})
 
 export const epics = [
   createEpicMiddleware(loadEpic),
-  createEpicMiddleware(receiveEpic)
+  createEpicMiddleware(receiveEpic),
+  createEpicMiddleware(connectEpic)
 ]
