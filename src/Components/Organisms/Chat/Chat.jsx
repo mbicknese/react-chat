@@ -8,7 +8,9 @@ const propTypes = {
 
 class Chat extends Component {
   renderMessages () {
-    return this.props.data.current.map((id) => (
+    const ids = this.props.data.current
+
+    return ids.slice(Math.max(ids.length - 10, 0)).map((id) => (
       <Message data={this.props.data.messages[id]} key={id} />
     ))
   }

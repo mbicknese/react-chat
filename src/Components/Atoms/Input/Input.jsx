@@ -21,7 +21,7 @@ class Input extends Component {
   }
 
   handleKeyDown (event) {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && this.state.value !== '') {
       this.props.onSubmit(createMessage(this.state.value))
       this.setState({
         value: ''
@@ -31,7 +31,13 @@ class Input extends Component {
 
   render () {
     return (
-      <input type='text' value={this.state.value} onKeyDown={this.handleKeyDown} onChange={this.handleChange} />
+      <input
+        className='p-3 border-1 border-grey-darker rounded w-full'
+        type='text'
+        value={this.state.value}
+        onKeyDown={this.handleKeyDown}
+        onChange={this.handleChange}
+      />
     )
   }
 }

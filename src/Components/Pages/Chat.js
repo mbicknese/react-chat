@@ -5,7 +5,7 @@ import { Chat as ChatContainer, Input } from '@/Containers'
 const Chat = () => (
   <Plain>
     <ChatContainer />
-    <Input />
+    <div className='absolute pin-b w-full p-6'><Input /></div>
   </Plain>
 )
 

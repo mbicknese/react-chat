@@ -7,7 +7,8 @@ import { Content } from '@/Components/Atoms'
 it('renders the given text', () => {
   const data = {
     title: 'New message',
-    message: 'Hello World!'
+    message: 'Hello World!',
+    timestamp: (new Date()).toLocaleString()
   }
   const message = shallow(<Message data={data} />)
   expect(message.find(Content).length).toBe(1)

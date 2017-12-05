@@ -8,9 +8,9 @@ const propTypes = {
 
 // @TODO retrieve author name from state
 const Message = ({ data }) => (
-  <article className='bg-blue-lightest float-right clearfix p-4'>
+  <article className='bg-blue-lightest float-right p-4 mb-4 max-w-2xl' style={{ clear: 'both' }}>
     <header className='mb-2'>
-      <div style={{ display: 'none' }}><Author name={data.author.toString()} /></div>
+      {data.author && <div style={{ display: 'none' }}><Author name={data.author.toString()} /></div>}
       <div className='text-grey'><RelativeDate date={data.timestamp} /></div>
     </header>
     <Content text={data.message} />
