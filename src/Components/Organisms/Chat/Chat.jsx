@@ -10,7 +10,7 @@ class Chat extends Component {
   renderMessages () {
     return this.props.data.current.map((id) => (
       <Message data={this.props.data.messages[id]} key={id} />
-    ), [])
+    ))
   }
 
   render () {

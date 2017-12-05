@@ -2,8 +2,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import Input from './Input'
+import { createMessage } from '@/Chat'
 
-it ('Accept text and notifies parents', () => {
+it('Accept text and notifies parents', () => {
   const msg = 'Hello World!'
   const onSubmit = jest.fn()
   const input = shallow(<Input onSubmit={onSubmit} />)
@@ -11,5 +12,6 @@ it ('Accept text and notifies parents', () => {
   inputEl.simulate('focus')
   inputEl.simulate('change', { target: { value: msg } })
   inputEl.simulate('keyDown', { which: 24 })
-
+  expect(onSubmit.mock.calls.length).toBe(1)
+  expect(onSubmit.mock.calls[0][0]).toEqual(createMessage(msg))
 })
