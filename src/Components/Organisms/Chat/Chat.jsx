@@ -15,7 +15,7 @@ class Chat extends Component {
 
   render () {
     return (
-      <div>
+      <div className='mx-6 my-4'>
         {this.renderMessages()}
       </div>
     )

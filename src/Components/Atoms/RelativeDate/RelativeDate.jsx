@@ -7,6 +7,24 @@ const propTypes = {
   relativeTo: PropTypes.string
 }
 class RelativeDate extends Component {
+  constructor () {
+    super()
+    this.tick = this.tick.bind(this)
+  }
+
+  componentDidMount () {
+    const interval = setInterval(this.tick, 30000)
+    this.setState({ interval })
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.state.interval)
+  }
+
+  tick () {
+    this.forceUpdate()
+  }
+
   renderDate (dateString) {
     const date = new Moment(dateString)
     if (date.isSame(new Date(), 'week')) {
