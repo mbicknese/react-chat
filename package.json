@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "webpack-dev-server --config etc/webpack.config.js -d --env.platform=default --progress --hot",
     "test": "jest --config etc/jest/jest.config.js",
-    "build": "webpack --config etc/webpack.config.js"
+    "build": "webpack --config etc/webpack.config.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

@@ -2,6 +2,16 @@
 
 This repo contains a coding challenge. It showcases my workflow and skills at this point in developing React applications.
 
+## Usage
+
+First build the application
+
+    npm run build
+
+Followed by starting the server
+
+    npm start
+
 ## Progress tracking
 
 To track the progress of the challenge. A new commit will be made at least every 10 minutes. These commits do not include a scoped feature. Instead it has everything written up to that moment. I might make scoped commits when I think specific chunks should be isolated from the timer. Given that I can build the chunk under 10 minutes.
