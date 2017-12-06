@@ -8,14 +8,11 @@ const bindStateToProps = state => ({
 })
 const bindDidpatchToProps = dispatch => ({
   onSubmit: payload => {
-    const cmdText = payload.message.split(' ')[0]
-    console.log(commandHandlers)
+    const messageWords = payload.message.split(' ')
+    const cmd = { command: messageWords[0], argument: messageWords.slice(1).join(' '), author: payload.author }
     for (const i in commandHandlers) {
-      if (commandHandlers[i].canHandle(cmdText)) {
-        return commandHandlers[i].handle({
-          author: payload.author,
-          argument: payload.message.split(' ').slice(1).join(' ')
-        })
+      if (commandHandlers[i].canHandle(cmd)) {
+        return commandHandlers[i].handle(cmd)
       }
     }
     dispatch(postOwnMessage(payload))
