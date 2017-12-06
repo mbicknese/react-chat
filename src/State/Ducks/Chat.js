@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs'
 import { socket } from '@/Chat'
 import { createEpicMiddleware } from 'redux-observable'
+import generateId from '@/UID'
 
 const OWN_MESSAGE = 'react-chat/chat/OWN_MESSAGE'
 const RECEIVE_MESSAGE = 'react-chat/chat/RECEIVE_MESSAGE'
@@ -11,7 +12,7 @@ const CONNECTED = 'react-chat/chat/CONNECTED'
 const initialState = {
   messages: {},
   current: [],
-  author: null
+  author: generateId()
 }
 
 export default (state = initialState, action) => {
@@ -47,13 +48,8 @@ const receiveEpic = action$ =>
 Observable.create(observer => {
   socket.on('messageSend', message => { observer.next(receiveMessage(message)) })
 })
-const connectEpic = action$ =>
-Observable.create(observer => {
-  socket.on('connect', connection => { console.log(connection); observer.next(connected(connection)) })
-})
 
 export const epics = [
   createEpicMiddleware(loadEpic),
-  createEpicMiddleware(receiveEpic),
-  createEpicMiddleware(connectEpic)
+  createEpicMiddleware(receiveEpic)
 ]

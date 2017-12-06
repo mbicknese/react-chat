@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { createMessage } from '@/Chat'
 
 const propTypes = {
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  author: PropTypes.number
 }
 
 class Input extends Component {
@@ -22,7 +23,7 @@ class Input extends Component {
 
   handleKeyDown (event) {
     if (event.keyCode === 13 && this.state.value !== '') {
-      this.props.onSubmit(createMessage(this.state.value))
+      this.props.onSubmit(createMessage(this.state.value, this.props.author))
       this.setState({
         value: ''
       })
