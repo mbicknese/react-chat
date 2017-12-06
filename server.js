@@ -17,7 +17,8 @@ app.get('*', (req, res) => {
 io.on('connection', socket => {
   console.log(`connected ${socket.id}`)
   socket.on('messageSend', message => io.emit('messageSend', message))
-  socket.on('nickChanged', message => io.emit('nickChanged', message))
+  socket.on('nickChanged', payload => io.emit('nickChanged', payload))
+  socket.on('messageRemoved', payload => io.emit('messageRemoved', payload))
   socket.on('disconnect', () => console.log(`disconnect ${socket.id}`))
 })
 

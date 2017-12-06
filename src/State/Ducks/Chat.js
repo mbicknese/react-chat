@@ -8,6 +8,7 @@ const RECEIVE_MESSAGE = 'react-chat/chat/RECEIVE_MESSAGE'
 const MESSAGE_DELIVERED = 'react-chat/chat/MESSAGE_DELIVERED'
 const CONNECTED = 'react-chat/chat/CONNECTED'
 const NICK_CHANGED = 'react-chat/chat/NICK_CHANGED'
+const MESSAGE_REMOVED = 'react-chat/chat/MESSAGE_REMOVED'
 
 // @TODO improve scalability (and use logic names 'byId', 'allIds', 'chats.messageIds')
 const initialState = {
@@ -36,6 +37,14 @@ export default (state = initialState, action) => {
         return state
       }
       return { ...state, other: action.payload.nick }
+    case MESSAGE_REMOVED:
+      for (let i = state.current.length - 1; i >= 0; i--) {
+        if (state.messages[state.current[i]].author === action.payload.author) {
+          state.current.splice(i, 1)
+          return { ...state }
+        }
+      }
+      return state
     default:
       return state
   }
@@ -45,6 +54,7 @@ export const postOwnMessage = payload => ({ type: OWN_MESSAGE, payload })
 export const receiveMessage = payload => ({ type: RECEIVE_MESSAGE, payload })
 export const connected = payload => ({ type: CONNECTED, payload })
 export const nickChanged = payload => ({ type: NICK_CHANGED, payload })
+export const messageRemoved = payload => ({ type: MESSAGE_REMOVED, payload })
 
 const loadEpic = action$ =>
 action$.ofType(OWN_MESSAGE)
@@ -60,9 +70,14 @@ const nickEpic = action$ =>
 Observable.create(observer => {
   socket.on('nickChanged', payload => { observer.next(nickChanged(payload)) })
 })
+const removeEpic = action$ =>
+Observable.create(observer => {
+  socket.on('messageRemoved', payload => { observer.next(messageRemoved(payload)) })
+})
 
 export const epics = [
   createEpicMiddleware(loadEpic),
   createEpicMiddleware(receiveEpic),
-  createEpicMiddleware(nickEpic)
+  createEpicMiddleware(nickEpic),
+  createEpicMiddleware(removeEpic)
 ]
